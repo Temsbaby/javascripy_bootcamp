@@ -1,0 +1,156 @@
+1. Basic functions
+We have been calling functions for a while already. Remember prompt(), console.log(), push(), and sort() for arrays? These are all functions. Functions are a group of statements, variable declarations, loops, and so on that are bundled together. Calling a function means an entire group of statements will get executed.
+    * Invoking functions
+        - We can recognize functions by the parentheses at the end. We can invoke functions like this:
+            nameOfTheFunction();
+            functionThatTakesInput("the input", 5, true)
+        - This is invoking a function called nameOfTheFunction with no arguments, and a function called functionThatTakesInput with three required arguments.
+
+    * Writing functions
+        - Writing a function can be done using the function keyword. Here is the template syntax to do so:
+            function nameOfTheFunction() {
+                //content of the function
+            }
+        - The above function can be called like this:
+            nameOfTheFunction();
+
+        - Let's write a function that asks for your name and then greets you:
+            function sayHello() {
+                let you = prompt("What's your name? ");
+                console.log("Hello", you + "!");
+            }
+        - We call this function like this:
+            sayHello();
+
+    * Naming Functions
+        - Giving your function a name might seem like a trivial task, but there are some best practices to keep in mind here. To keep it short:
+            1. Use camelCase for your functions: this means that the first word starts with a lowercase letter and new words start with a capital. That makes it a lot easier to read and keeps your code consistent.
+
+            2. Make sure that the name describes what the function is doing: it's better to call a number addition function addNumbers than myFunc.
+
+            3. Use a verb to describe what the function is doing: make it an action. So instead of hiThere, call it sayHi.
+
+2. Parameters and arguments
+    - Both terms are commonly used to mean the information that is passed into a function:
+        function tester(para1, para2){
+            return para1 + " " + para2;
+        }
+        const arg1 = "argument 1";
+        const arg2 = "argument 2";
+        tester(arg1, arg2);
+
+    - A parameter is defined as the variable listed inside the parentheses of the function definition, which defines the scope of the function. They are declared like so:
+        function myFunc(param1, param2) {
+            // code of the function;
+        }
+
+    - A practical example could be the following, which takes x and y as parameters:
+        function addTwoNumbers(x, y) {
+            console.log(x + y);
+        }
+    - Depending on the arguments you are calling with the function, the outcome of the function can change, which makes the function a very powerful and flexible building block.
+
+    * Default and unsuitable parameters
+        - What happens if we call our addTwoNumbers() function without any arguments?
+        - We could tell JavaScript to take different default parameters.
+            function addTwoNumbers(x = 2, y = 3) {
+                console.log(x + y);
+            }
+        - If you call the function with no arguments now, it will automatically assign 2 to x and 3 to y, unless you override them by calling the function with arguments.
+
+3. Special functions and operators
+    - There are a few special ways of writing functions, as well as some special operators that will come in handy. We are talking about arrow functions and the spread and rest operators here. Arrow functions are great for sending functions around as parameters and using shorter notations. The spread and rest operators make our lives easier and are more flexible when sending arguments and working with arrays.
+
+    * Arrow Functions
+        - Arrow functions are a special way of writing functions that can be confusing at first. Their use looks like this:
+            (param1, param2) => body of the function
+        - Or for no parameters
+            () => body of the function;
+        - Or for one parameter (no parentheses are needed here)
+            param => body of the function;
+        - Or for a multiline function with two parameters
+            (param1, param2) => {
+                //line 1
+                // any number of lines
+            }
+        
+        - Arrow functions are useful whenever you want to write an implementation on the spot, such as inside another function as an argument. They are most often used for functions that consist of only one statement.
+            function doingStuff(x) {
+                console.log(x);
+            }
+        - To rewrite this as an arrow function, you will have to store it in a variable or send it in as an argument if you want to be able to use it. We use the name of the variable to execute the arrow function.
+
+            let doingArrowStuff = x => console.log(x);
+        - And invoke it like this:
+            doingArrowStuff("Great");
+        
+        - We can combine the arrow function with certain built-in methods.
+        - For example, we can use the foreach() method on an array. This method executes a certain function for every element in the array. Have a look at this example:
+            const arr = ["squirrel", "alpaca", "buddy"];
+            arr.forEach(e => console.log(e))
+    
+    * Spread Operators
+        - The spread operator is a special operator. It consists of three dots used before a referenced expression or string, and it spreads out the arguments or elements of an array.
+            let spread = ["so", "much", "fun"];
+            let message = ["JavaScript", "is", ...spread, "and", "very","powerful"];
+    
+    * Rest parameter
+        - Similar to the spread operator, we have the rest parameter. It has the same symbol as the spread operator, but it is used inside the function parameter list.
+            function someFunction(param1, param2) {
+                console.log(param1, param2);
+            }
+            someFunction("hi", "there!", "How are you?");
+
+        - If we use the rest parameter, it allows us to send in any number of arguments and translate them into a parameter array.
+            function someFunction(param1, ...param2) {
+                console.log(param1, param2);
+            }
+            someFunction("hi", "there!", "How are you?");
+
+4. Returning function values
+    - Functions can give back a result when we specify a return value. The return value can be stored in a variable.
+        let favoriteSubject = prompt("What is your favorite subject?");
+    - We are storing the result of our prompt() function in the variable favoriteSubject, which in this case would be whatever the user specifies.
+        function addThreeNumbers(x, y, z) {
+        return x + y + z;
+        }
+    
+    * Returning with arrow functions
+        - If we have a one-line arrow function, we can return without using the keyword return. So if we want to rewrite the function, we can write it like this to make an arrow function out of it:
+            let addThreeNumbers = (x, y,z) => x + y + z;
+
+5. Variable scope in functions
+    - Scope defines where you can access a certain variable. When a variable is in scope, you can access it. When a variable is out of scope, you cannot access the variable.
+
+    * Local variables in functions
+    * Global variables
+
+6. Nested functions
+    - Just as with loops, if statements, and actually all other building blocks, we can have functions inside functions. This phenomenon is called nested functions:
+        function doOuterFunctionStuff(nr) {
+            console.log("Outer function");
+            doInnerFunctionStuff(nr);
+            function doInnerFunctionStuff(x) {
+                console.log(x + 7);
+                console.log("I can access outer variables:", nr);
+            }
+        }
+        doOuterFunctionStuff(2);
+
+7. Anonymous functions
+    - So far, we have been naming our functions. We can also create functions without names if we store them inside variables. We call these functions anonymous. Here is a non-anonymous function:
+        function doingStuffAnonymously() {
+            console.log("Not so secret though.");
+        }
+    - Here is how to turn the previous function into an anonymous function:
+        function () {
+            console.log("Not so secret though.");
+        };
+    - As you can see, our function has no name. It is anonymous. So you may wonder how you can invoke this function.
+    - We will have to store it in a variable in order to call the anonymous function;
+        let functionVariable = function () {
+            console.log("Not so secret though.");
+        };
+    - An anonymous function can be called using the variable name, like this:
+        functionVariable();
+    - Storing functions inside variables enables us to do very cool things, like passing in functions as parameters. This concept adds another abstract layer to coding. This concept is called callbacks.

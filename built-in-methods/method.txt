@@ -1,0 +1,249 @@
+1. Array Methods
+    - We have seen arrays already—they can contain multiple items. We have also seen quite a few built-in methods on arrays, like shift() and push().
+
+    * Performing a certain action for every item
+        - There is a built-in method that you can use to execute a function for every element in the array. This is the forEach() method.
+
+        let arr = ["grapefruit", 4, "hello", 5.6, true];
+        function printStuff(element, index) {
+            console.log(`Printing stuff: ${element} on array position: ${index}`);
+        }
+        arr.forEach(printStuff);
+
+    * Filtering an array
+        - We can use the built-in filter() method on an array to alter which values are in the array. The filter method takes a function as an argument, and this function should return a Boolean. If the Boolean has the value true, the element will end up in the filtered array. If the Boolean has the value false, the element will be left out.
+
+        let arr = ["squirrel", 5, "Tjed", new Date(), true];
+        function checkString(element, index) {
+            return typeof element === "string";
+        }
+
+        let filterArr = arr.filter(checkString);
+        console.log(filterArr);
+
+        It is important to realize that the original array has not changed, the filter()method returns a new array with the elements that made it through the filter. We capture it here in the variable filterArr.
+
+    * Checking a condition for all elements
+        - You can use the every() method to see whether something is true for all elements in the array. If that is the case, the every() method will return true, else it will return false.
+            console.log(arr.every(checkString));
+
+    * Replacing part of an array with another part of the array
+        - The copyWithin() method can be used to replace a part of the array with another part of the array. We specify 3 arguments. The first one is the target position, to which the values get copied. The second one is the start of what to copy to the target position and the last one is the end of the sequence that will be copied to the target position.
+            arr = ["grapefruit", 4, "hello", 5.6, true];
+            arr.copyWithin(0, 3, 4);
+
+        - If we specify a range with length 2, the first two elements after the starting position get overridden:
+            arr = ["grapefruit", 4, "hello", 5.6, true];
+            arr.copyWithin(0, 3, 5);
+
+        - We can also not specify an end at all; it will take the range to the end of the string:
+            let arr = ["grapefruit", 4, "hello", 5.6, true, false];
+            arr.copyWithin(0, 3);
+            console.log(arr);
+
+        - It is important to keep in mind that this function changes the content of the original array, but will never change the length of the original array.
+
+    * Mapping the values of an array
+        - Sometimes you'll need to change all the values in an array. With the array map() method you can do just that. This method will return a new array with all the new values. You'll have to say how to create these new values. This can be done with the arrow function. It is going to execute the arrow function for every element in the array.
+
+            let arr = [1, 2, 3, 4];
+            let mapped_arr = arr.map(x => x + 1);
+            console.log(mapped_arr);
+    
+    * Finding the last occurrence in an array
+        - We can find occurrences with indexOf() as we have seen already. To find the last occurrence, we can use the lastIndexOf() method on an array, just as we did for string.
+        - It will return the index of the last element with that value, if it can find it at all:
+            let bb = ["so", "bye", "bye", "love"];
+            console.log(bb.lastIndexOf("bye"));
+        - This will log 2, because the index 2 holds the last bye variable. What do you think you'll get when you ask for the last index of something that's not there?
+            let bb = ["so", "bye", "bye", "love"];
+            console.log(bb.lastIndexOf("hi"));
+        That's right (hopefully)! It's -1.
+
+2. String methods
+    - We have worked with strings already and chances are that you have run into some of the methods on strings by now. There are a few we didn't address specifically just yet and we are going to discuss them.
+
+    * Combining strings
+        - When you want to concatenate strings, you can use the concat() method. This does not change the original string(s); it returns the combined result as a string. You will have to capture the result in a new variable, else it will get lost:
+            let s1 = "Hello ";
+            let s2 = "JavaScript";
+            let result = s1.concat(s2);
+            console.log(result);
+    
+    * Converting a string to an array
+        - With the split() method we can convert a string to an array. Again, we will have to capture the result; it is not changing the original string. Let's use the previous result containing Hello JavaScript. We will have to tell the split method on what string it should split. Every time it encounters that string, it will create a new array item:
+            let result = "Hello JavaScript";
+            let arr_result = result.split(" ");
+            console.log(arr_result);
+        - We can split by any character, for example a comma:
+            let favoriteFruits = "strawberry,watermelon,grapefruit";
+            let arr_fruits = favoriteFruits.split(",");
+            console.log(arr_fruits);
+        - You can split on anything, and the string you are splitting on is left out of the result.
+
+    * Converting an array to a string
+        - With the join() method you can convert an array to a string.
+            let letters = ["a", "b", "c"];
+            let x = letters.join();
+            console.log(x);
+        - The type of x is string. If you want something else other than a comma, you can specify that, like this:
+            let letters = ["a", "b", "c"];
+            let x = letters.join('-');
+            console.log(x);
+
+    * Working with index and positions
+        - Being able to find out what index a certain substring is at within your string is very useful. For example, when you need to search for a certain word through the user input of a log file and create a substring starting at that index. Here is an example of how to find the index of a string. The indexOf() method returns the index, a single number, of the first character of the substring:
+
+            let poem = "Roses are red, violets are blue, if I can do JS, then you
+            can too!";
+            let index_re = poem.indexOf("re");
+            console.log(index_re);
+
+        - This is logging 7 to the console, because the first occurrence of re is in are, and the re begins at index 7. When it can't find an index, it will return -1, like this example:
+
+            let indexNotFound = poem.indexOf("python");
+            console.log(indexNotFound);
+
+        - It is logging -1 to indicate that the string we are searching for doesn't occur in the target string.
+        - An alternative way of searching for a particular substring within a string is to use the search() method:
+
+            let searchStr = "When I see my fellow, I say hello";
+            let pos = searchStr.search("lo");
+            console.log(pos);
+        
+        - This will log 17, because that is the index of lo in fellow. Much like indexOf(), if it cannot find it, it will return -1. This is the case for this example:
+            let notFound = searchStr.search("JavaScript");
+            console.log(notFound);
+        
+        - Moving on, the indexOf() method is returning the index of the first occurrence, but similarly, we also have a lastIndexOf() method. It returns the index where the argument string occurs last. If it cannot find it, it returns -1. Here is an example:
+
+            let lastIndex_re = poem.lastIndexOf("re");
+            console.log(lastIndex_re);
+
+        - This returns 24; this is the last time re appears in our poem. It is the second are.
+
+        - Sometimes you will have to do the reverse; instead of looking for what index a string occurs at, you will want to know what character is at a certain index position. This is where the charAt(index) method comes in handy, where the specified index position is taken as an argument:
+            let pos1 = poem.charAt(10);
+            console.log(pos1);
+
+        - This is logging r, because the character at index 10 is the r of red. If you are asking for the position of an index that is out of the range of the string, it will return an empty string
+            let pos2 = poem.charAt(1000);
+            console.log(pos2);
+
+    * Creating substrings
+        - With the slice(start, end) method we can create substrings. This does not alter the original string, but returns a new string with the substring. It takes two parameters, the first is the index at which it starts and the second is the end index. If you leave out the second index it will just continue until the end of the string from the start. The end index is not included in the substring.
+            let str = "Create a substring";
+            let substr1 = str.slice(5);
+            let substr2 = str.slice(0,3);
+            console.log("1:", substr1);
+            console.log("2:", substr2);
+
+    * Replacing parts of the string
+        - If you need to replace a part of the string, you can use the replace(old, new) method. It takes two arguments, one string to look for in the string and one new value to replace the old value with. Here is an example:
+
+            let hi = "Hi buddy";
+            let new_hi = hi.replace("buddy", "Pascal");
+            console.log(new_hi);
+        - If the string you are targeting doesn't appear in the original string, the replacement doesn't take place and the original string will be returned:
+            let new_hi2 = hi.replace("not there", "never there");
+            console.log(new_hi2);
+
+        - It is only changing the first occurrence by default. So this example will only replace the first hello in the new string:
+            let s3 = "hello hello";
+            let new_s3 = s3.replace("hello", "oh");
+            console.log(new_s3);
+
+        - If we wanted to replace all the occurences, we could use the replaceAll() method. This will replace all occurrences with the specified new string,like this:
+            let s3 = "hello hello";
+            let new_s3 = s3.replaceAll("hello", "oh");
+            console.log(new_s3);
+
+    * Uppercase and lowercase
+        - We can change the letters of a string with the toUpperCase() and toLowerCase() built-in methods on string. Again, this is not changing the original string, so we'll have to capture the result:
+            let low_bye = "bye!";
+            let up_bye = low_bye.toUpperCase();
+            console.log(up_bye);
+
+        - It converts all the letters to uppercase. We can do the opposite with toLowerCase():
+            let caps = "HI HOW ARE YOU?";
+            let fixed_caps = caps.toLowerCase();
+            console.log(fixed_caps);
+
+    * The start and end of a string
+        - Sometimes you would want to check what a string starts or ends with. You've guessed it, there are built-in methods for this on string.
+
+            let encouragement = "You are doing great, keep up the good work!";
+            let bool_start = encouragement.startsWith("You");
+            console.log(bool_start);
+
+        - Careful here,because it is case sensitive.
+            let bool_start2 = encouragement.startsWith("you");
+            console.log(bool_start2);
+
+            let bool_end = encouragement.endsWith("Something else");
+            console.log(bool_end);
+
+3. Number Methods
+    - Let's move on to some built-in methods on the Number object. We have seen a few already.
+
+    * Checking if something is (not) a number
+        - This can be done with isNaN(). We can use this method without Number in front of it. Often you will want to do the opposite, you can negate the function with an ! in front of it:
+            let x = 34;
+            console.log(isNaN(x));
+            console.log(!isNaN(x));
+            let str = "hi";
+            console.log(isNaN(str));
+
+    * Checking if something is an integer
+        - Yes, this is done with isInteger(). Unlike isNaN(), isInteger() has not been made global and we will have to refer to the Number object to use it. It really does what you think it would: it returns true if the value is an integer and false when it's not:
+            let x = 3;
+            let str = "integer";
+            console.log(Number.isInteger(x));
+            console.log(Number.isInteger(str));
+            console.log(Number.isInteger(2.4));
+
+    * Specifying a number of decimals
+        - We can tell JavaScript how many decimals to use with the toFixed() method. This is different from the rounding methods in Math, since we can specify the number of decimals here. It doesn't change the original value, so we'll have to store the result:
+            let x = 1.23456;
+            let newX = x.toFixed(2);
+    This will only leave two decimals, so the value of newX will be 1.23. It rounds the
+    number normally; you can see this when we ask for one more decimal:
+        let x = 1.23456;
+        let newX = x.toFixed(3);
+        console.log(x, newX);
+
+    * Specifying precision
+        - There is also a method to specify precision. Again this is different from the rounding methods in the Math class, since we can specify the total number of numbers to look at. This comes down to JavaScript looking at the total number of numbers. It is also counting the ones before the dot:
+            let x = 1.23456;
+            let newX = x.toPrecision(2);
+        - And also here, it is rounding the numbers:
+            let x = 1.23456;
+            let newX = x.toPrecision(4);
+            console.log(newX);
+            This will log 1.235.
+4. Math Methods
+    - The Math object has many methods that we can use to do calculations and operations on numbers. We will go over the most important ones here.
+
+    * Finding the highest and lowest number
+        - There is a built-in method max() to find the highest number among the arguments. You can see it here:
+            let highest = Math.max(2, 56, 12, 1, 233, 4);
+            console.log(highest);
+
+        - In a similar way, we can find the lowest number:
+            let lowest = Math.min(2, 56, 12, 1, 233, 4);
+            console.log(lowest);
+
+        - If you try to do this with nonnumeric arguments, you will get NaN as a result:
+            let highestOfWords = Math.max("hi", 3, "bye");
+            console.log(highestOfWords);
+        - It is not giving 3 as output, because it is not ignoring the text but concluding that it cannot determine whether hi should be higher or lower than 3. So it returns NaN instead.
+
+    * Square root and raising to the power of
+        - The method sqrt() is used to calculate the square root of a certain number. Here you can see it in action:
+            let result = Math.sqrt(64);
+            console.log(result);
+
+        - In order to raise a number to a certain power, we can use the pow(base, exponent) function. Like this:
+            let result2 = Math.pow(5, 3);
+            console.log(result2);
+    We are raising 5 to the power of 3
